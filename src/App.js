@@ -66,7 +66,7 @@ function App() {
             <UserTable
               users={users}
               deleteUser={deleteUser}
-              editrow={editRow}
+              editRow={editRow}
             />
           </div>
         </div>

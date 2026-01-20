@@ -48,7 +48,7 @@ const EditUserForm = (props) => {
         />
       </div>
 
-      <button type="submit" className="btn btn btn-outline-primary mt-3">
+      <button type="submit" className="btn btn btn-outline-primary mt-3" style={{ marginRight: "10px" }}>
         Update User
       </button>
       <button

@@ -15,6 +15,7 @@ function App() {
 
   const initialFormData = { id: null, name: "", username: "" };
   const [currentUser, setCurrentUser] = useState(initialFormData);
+  const [activeView, setActiveView] = useState("addUser");
 
   const adduser = (user) => {
     user.id = users.length + 1;
@@ -36,43 +37,65 @@ function App() {
   const editRow = (user) => {
     SetEditing(true);
     setCurrentUser({ id: user.id, name: user.name, username: user.username });
+    setActiveView("addUser"); // Switch to form view when editing
   };
 
   return (
-    <div className="container main-container">
-      <h2 className="page-title">CRUD operations</h2>
-      {/* First Row - Add/Edit Users */}
-      <div className="row">
-        <div className="col-12">
-          {editing ? (
-            <div className="edit-user-container">
-              <h5>Edit User</h5>
-              <EditUserForm
-                currentUser={currentUser}
-                SetEditing={SetEditing}
-                updateUser={updateUser}
+    <div className="app-wrapper">
+      {/* Left Sidebar */}
+      <nav className="sidebar">
+        <h4 className="sidebar-title">Menu</h4>
+        <ul className="sidebar-menu">
+          <li 
+            className={`sidebar-menu-item ${activeView === "addUser" ? "active" : ""}`}
+            onClick={() => setActiveView("addUser")}
+          >
+            ➕ Add User
+          </li>
+          <li 
+            className={`sidebar-menu-item ${activeView === "viewUser" ? "active" : ""}`}
+            onClick={() => setActiveView("viewUser")}
+          >
+            👥 View Users
+          </li>
+        </ul>
+      </nav>
+
+      {/* Main Content */}
+      <div className="main-content">
+        <div className="container main-container">
+          <h2 className="page-title">CRUD Operations</h2>
+          
+          {activeView === "addUser" && (
+            <>
+              {editing ? (
+                <div className="edit-user-container">
+                  <h5>Edit User</h5>
+                  <EditUserForm
+                    currentUser={currentUser}
+                    SetEditing={SetEditing}
+                    updateUser={updateUser}
+                  />
+                </div>
+              ) : (
+                <div className="add-user-container">
+                  <h5>Add Users</h5>
+                  <AddUserForm adduser={adduser} />
+                </div>
+              )}
+            </>
+          )}
+
+          {activeView === "viewUser" && (
+            <div className="view-users-container">
+              <h5>View Users</h5>
+              <UserTable
+                users={users}
+                deleteUser={deleteUser}
+                editRow={editRow}
               />
             </div>
-          ) : (
-            <div className="add-user-container">
-              <h5>Add Users</h5>
-              <AddUserForm adduser={adduser} />
-            </div>
           )}
-        </div>
-      </div>
-
-      {/* Second Row - View Users */}
-      <div className="row mt-4">
-        <div className="col-12">
-          <div className="view-users-container">
-            <h5>View Users</h5>
-            <UserTable
-              users={users}
-              deleteUser={deleteUser}
-              editRow={editRow}
-            />
-          </div>
         </div>
       </div>
     </div>

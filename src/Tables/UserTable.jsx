@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 
 const UserTable = (props) => {
 
@@ -20,10 +21,10 @@ const UserTable = (props) => {
               <td>{user.name}</td>
               <td>{user.username}</td>
               <td>
-                <button type="button" onClick={() => props.editRow(user)} className="btn btn-outline-warning">
+                <button type="button" onClick={() => props.editRow(user)} className="btn btn-outline-warning btn-edit">
                   Edit
                 </button>
-                <button type="button" onClick={() => props.deleteUser(user.id)} className="btn btn-outline-danger ml-3">
+                <button type="button" onClick={() => props.deleteUser(user.id)} className="btn btn-outline-danger">
                   Delete
                 </button>
               </td>

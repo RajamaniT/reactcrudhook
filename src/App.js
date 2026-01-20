@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import UserTable from "./Tables/UserTable";
 import AddUserForm from "./Forms/AddUserForm";
 import EditUserForm from "./Forms/EditUserForm";
@@ -38,12 +39,13 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h2>CRUD operations</h2>
-      <div className="row mt-5">
-        <div className="col-md-6">
+    <div className="container main-container">
+      <h2 className="page-title">CRUD operations</h2>
+      {/* First Row - Add/Edit Users */}
+      <div className="row">
+        <div className="col-12">
           {editing ? (
-            <div className="row">
+            <div className="edit-user-container">
               <h5>Edit User</h5>
               <EditUserForm
                 currentUser={currentUser}
@@ -52,17 +54,19 @@ function App() {
               />
             </div>
           ) : (
-            <div className="row">
+            <div className="add-user-container">
               <h5>Add Users</h5>
               <AddUserForm adduser={adduser} />
             </div>
           )}
         </div>
-        <div className="col-md-6">
-          <div className="row">
+      </div>
+
+      {/* Second Row - View Users */}
+      <div className="row mt-4">
+        <div className="col-12">
+          <div className="view-users-container">
             <h5>View Users</h5>
-          </div>
-          <div className="row">
             <UserTable
               users={users}
               deleteUser={deleteUser}
